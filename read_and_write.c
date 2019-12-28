@@ -5,8 +5,6 @@ s_figure *add_block(s_position block, s_figure *add_to_figure, int n_block)
     add_to_figure->figure_position[n_block][0] = block.x;
     add_to_figure->figure_position[n_block][1] = block.y;
     add_to_figure->next = NULL;
-   //printf("%d", add_to_figure->figure_position[n_block][0]);
-   // printf("%d\n", add_to_figure->figure_position[n_block][1]);
     return (add_to_figure);
 }
 
@@ -62,10 +60,10 @@ int read_and_write(int fd, s_figure **tetri) //reading tetriminos and return cou
             (*tetri)->next = add_tetrimino(buf, reading_tetrimino);
             (*tetri) = (*tetri)->next;
             (*tetri)->prev = temp;
-            //printf ("\n");
+            printf ("\n");
         }
-        //else
-           // printf("Wrong tetrimino");
+        else
+            printf("Wrong tetrimino");
     }
     (*tetri)->next = NULL;
     free(temp);
@@ -77,17 +75,14 @@ int main(int argc, char **argv)
     int fd;
     s_figure *tetri;
     s_figure *start;
+    s_figure *temp;
+    int count;
 
     tetri = malloc(sizeof(s_figure));
     tetri->prev = NULL;
     start = tetri;
     fd = open(argv[1], O_RDONLY);
     read_and_write(fd, &tetri);
-    start = start->next;
-    printf("%d", start->figure_position[1][0]);
-    printf("%d\n", start->figure_position[1][1]);
-    start = start->next;
-    printf("%d", tetri->figure_position[1][0]);
-    printf("%d", tetri->figure_position[1][1]);
+    start = correction_func(start);
     return (0);
 }

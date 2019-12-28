@@ -19,7 +19,7 @@
 
 typedef struct t_figure
 {
-    int     figure_position[4][2];
+    int     figure_position[4][2]; 
     char    figure_type;
     struct t_figure *next;
     struct t_figure *prev;
@@ -37,5 +37,10 @@ int ft_count_char(char *s, char n);
 int read_and_write(int fd, s_figure **tetri);
 s_figure *add_tetrimino(char *figure, s_figure *reading_figure);
 s_figure *add_block(s_position block, s_figure *add_to_figure, int n_block);
+s_figure *correction_func(s_figure *tetri);
+int count_tetriminos(s_figure *start);
+char **init_field(int count);
+int square(int n);
+int minimum_field(int count);
 
 #endif
