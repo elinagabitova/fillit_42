@@ -1,0 +1,3 @@
+https://medium.com/@bethnenniger/fillit-solving-for-the-smallest-square-of-tetrominos-c6316004f909
+https://medium.com/@phtruong42/42-project-fillit-ffd0ce54223e
+https://www.zentut.com/c-tutorial/c-linked-list/
