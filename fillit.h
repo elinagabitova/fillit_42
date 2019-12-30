@@ -42,5 +42,6 @@ int count_tetriminos(s_figure *start);
 char **init_field(int count);
 int square(int n);
 int minimum_field(int count);
+char **increase_field(char **old_field, int old_size);
 
 #endif
