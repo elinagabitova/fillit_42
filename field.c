@@ -48,6 +48,5 @@ char **field(int count)
 {
     char **field;
     field = init_field(count);
-
     return (field);
 }
