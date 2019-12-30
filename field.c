@@ -44,9 +44,10 @@ char **init_field(int count) // taking count of tetriminos
     return (field);
 }
 
-int main()
+char **field(int count)
 {
     char **field;
-    field = init_field(4);
-    return (0);
+    field = init_field(count);
+
+    return (field);
 }

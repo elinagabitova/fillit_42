@@ -74,7 +74,7 @@ int main(int argc, char **argv)
     int fd;
     s_figure *tetri;
     s_figure *start;
-    s_figure *temp;
+    char **field_new;
     int count;
 
     tetri = malloc(sizeof(s_figure));
@@ -83,5 +83,6 @@ int main(int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
     read_and_write(fd, &tetri); //reading tetriminos and write coordinates to list;
     start = correction_func(start); //little correction for first list (correction: s_figure start is not empty anymore)
+    field_new = field(count_tetriminos(start));
     return (0);
 }

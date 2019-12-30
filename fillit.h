@@ -43,5 +43,5 @@ char **init_field(int count);
 int square(int n);
 int minimum_field(int count);
 char **increase_field(char **old_field, int old_size);
-
+char **field(int count);
 #endif
