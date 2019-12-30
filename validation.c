@@ -51,7 +51,7 @@ int validation(char *figure)
     i = 0;
     if (ft_count_char(figure, '#') != 4)
         return (0);
-    if (ft_count_char(figure, '*') != 12)
+    if (ft_count_char(figure, '.') != 12)
         return (0);
     while (figure[i] != '\0')
     {

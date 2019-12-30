@@ -38,7 +38,7 @@ s_figure *add_tetrimino(char *figure, s_figure *reading_figure) //adding tetrimi
     return (current_tetrimino);
 }
 
-int read_and_write(int fd, s_figure **tetri) //reading tetriminos and return count of them
+int read_and_write(int fd, s_figure **tetri) //reading tetriminos
 {
     char        *buf;
     int         readed;
@@ -60,7 +60,6 @@ int read_and_write(int fd, s_figure **tetri) //reading tetriminos and return cou
             (*tetri)->next = add_tetrimino(buf, reading_tetrimino);
             (*tetri) = (*tetri)->next;
             (*tetri)->prev = temp;
-            printf ("\n");
         }
         else
             printf("Wrong tetrimino");
@@ -82,7 +81,7 @@ int main(int argc, char **argv)
     tetri->prev = NULL;
     start = tetri;
     fd = open(argv[1], O_RDONLY);
-    read_and_write(fd, &tetri);
-    start = correction_func(start);
+    read_and_write(fd, &tetri); //reading tetriminos and write coordinates to list;
+    start = correction_func(start); //little correction for first list (correction: s_figure start is not empty anymore)
     return (0);
 }
