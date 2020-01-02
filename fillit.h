@@ -20,7 +20,7 @@
 typedef struct t_figure
 {
     int     figure_position[4][2]; 
-    char    figure_type;
+    char    figure_Alpha;
     struct t_figure *next;
     struct t_figure *prev;
 }                s_figure;
@@ -44,6 +44,6 @@ int         square(int n);
 int         minimum_field(int count);
 char        **increase_field(char **old_field, int old_size);
 char        **field(int count);
-void        tetri_to_field(s_figure *tetri, char **field);
+int        tetri_to_field(s_figure *tetri, char **field, s_position pos);
 
 #endif

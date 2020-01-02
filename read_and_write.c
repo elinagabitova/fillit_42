@@ -46,7 +46,9 @@ int read_and_write(int fd, s_figure **tetri) //reading tetriminos
     s_figure    *temp;
     int count;
     int check;
+    char alpha;
 
+    alpha = 'A';
     count = 0;
     reading_tetrimino = NULL;
     buf = (char *)(malloc(sizeof(char) * 22));
@@ -58,8 +60,10 @@ int read_and_write(int fd, s_figure **tetri) //reading tetriminos
         {
             temp = (*tetri);
             (*tetri)->next = add_tetrimino(buf, reading_tetrimino);
+            reading_tetrimino->figure_Alpha = alpha;
             (*tetri) = (*tetri)->next;
             (*tetri)->prev = temp;
+            alpha++;
         }
         else
             printf("Wrong tetrimino");
@@ -83,6 +87,6 @@ int main(int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
     read_and_write(fd, &tetri); //reading tetriminos and write coordinates to list;
     start = correction_func(start); //little correction for first list (correction: s_figure start is not empty anymore)
-    field_new = field(count_tetriminos(start));
+    //field_new = field(count_tetriminos(start));
     return (0);
 }
