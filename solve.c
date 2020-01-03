@@ -29,7 +29,7 @@ int tetri_to_field(s_figure *tetri, char **field, s_position pos)
     
 }
 
-void filling_field(char **field, s_figure *tetri, int count) //not count but field size;
+char  **filling_field(char **field, s_figure *tetri, int count) //not count but field size;
 {
     s_position pos;
     int n;
@@ -60,11 +60,12 @@ void filling_field(char **field, s_figure *tetri, int count) //not count but fie
             clear_field(tetri, field, pos);
             pos.x++;
         }
-        if (pos.x == count - 1)
+        if (pos.x == field_size(field) - 1)
         {
             pos.x = 0;
             pos.y++; 
         }
         tetri = tetri->next;
     }
+    return (field);
 }

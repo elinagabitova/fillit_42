@@ -87,6 +87,8 @@ int main(int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
     read_and_write(fd, &tetri); //reading tetriminos and write coordinates to list;
     start = correction_func(start); //little correction for first list (correction: s_figure start is not empty anymore)
-    //field_new = field(count_tetriminos(start));
+    count = count_tetriminos(start);
+    field_new = field(count);
+    filling_field(field_new, tetri, count);
     return (0);
 }

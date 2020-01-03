@@ -1,4 +1,18 @@
 #include "fillit.h"
+int field_size(char **field)
+{
+    int size;
+    int i;
+    
+    size = 0;
+    i = 0;
+    while (*field[i] != '\0')
+    {
+        size++;
+        i++;
+    }
+    return (size);
+}
 
 int square(int n)
 {
