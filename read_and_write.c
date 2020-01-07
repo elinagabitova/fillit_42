@@ -1,4 +1,20 @@
 #include "fillit.h"
+s_figure *figures_to_zero_pos(s_figure *tetri)
+{
+    s_position pos;
+    int n;
+
+    n = 0;
+    pos.x = tetri->figure_position[0][0];
+    pos.y = tetri->figure_position[0][1];
+    while (n < 4)
+    {    
+        tetri->figure_position[n][0] = tetri->figure_position[n][0] - pos.x;
+        tetri->figure_position[n][1] = tetri->figure_position[n][1] - pos.y;
+        n++;
+    }
+    return (tetri);
+}
 
 s_figure *add_block(s_position block, s_figure *add_to_figure, int n_block)
 {
@@ -8,7 +24,7 @@ s_figure *add_block(s_position block, s_figure *add_to_figure, int n_block)
     return (add_to_figure);
 }
 
-s_figure *add_tetrimino(char *figure, s_figure *reading_figure) //adding tetrimino's coordinates to struct
+s_figure *add_tetrimino(char *figure, s_figure *reading_figure)
 {
     s_figure        *current_tetrimino;
     s_position      tetriminos_position;
@@ -38,17 +54,17 @@ s_figure *add_tetrimino(char *figure, s_figure *reading_figure) //adding tetrimi
     return (current_tetrimino);
 }
 
-int read_and_write(int fd, s_figure **tetri) //reading tetriminos
+int read_and_write(int fd, s_figure **tetri)
 {
     char        *buf;
     int         readed;
     s_figure    *reading_tetrimino;
     s_figure    *temp;
+    char        alpha;
     int count;
     int check;
-    char alpha;
 
-    alpha = 'A';
+    alpha = 64;
     count = 0;
     reading_tetrimino = NULL;
     buf = (char *)(malloc(sizeof(char) * 22));
@@ -58,18 +74,17 @@ int read_and_write(int fd, s_figure **tetri) //reading tetriminos
         check = validation(buf);
         if (check)
         {
-            temp = (*tetri);
+            temp = *tetri;
             (*tetri)->next = add_tetrimino(buf, reading_tetrimino);
-            reading_tetrimino->figure_Alpha = alpha;
             (*tetri) = (*tetri)->next;
+            figures_to_zero_pos(*tetri);
             (*tetri)->prev = temp;
-            alpha++;
         }
         else
             printf("Wrong tetrimino");
     }
     (*tetri)->next = NULL;
-    free(temp);
+    //free(temp);
     return (0);
 }
 
@@ -85,10 +100,14 @@ int main(int argc, char **argv)
     tetri->prev = NULL;
     start = tetri;
     fd = open(argv[1], O_RDONLY);
-    read_and_write(fd, &tetri); //reading tetriminos and write coordinates to list;
-    start = correction_func(start); //little correction for first list (correction: s_figure start is not empty anymore)
+    read_and_write(fd, &tetri);
+    start = correction_func(start);
     count = count_tetriminos(start);
     field_new = field(count);
-    filling_field(field_new, tetri, count);
+    alpha_to_list(start);
+    //while (!(field_new = filling_field(field_new, start, 4)))
+    //{
+       // field_new = increase_field(field_new, 4);
+    //}
     return (0);
 }
