@@ -7,4 +7,9 @@
     printf("%d", start->figure_position[3][0]);
     printf("%d\n", start->figure_position[3][1]);
 
+00 10 20 30
+01 11 21 31
+02 12 22 32
+03 13 23 33
+
     printf("%c", start->figure_Alpha);
