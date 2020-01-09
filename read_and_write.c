@@ -87,14 +87,42 @@ int read_and_write(int fd, s_figure **tetri)
     //free(temp);
     return (0);
 }
+char **increase_field(char **old_field, int new_size)
+{
+    int i;
+    int j;
 
+    i = 0;
+    j = 0;
+    //clear_full_field(old_field, new_size);
+    old_field = (char **)malloc(sizeof(char *) * new_size);
+    while (i < new_size)
+    {
+        old_field[i] = (char *)malloc(sizeof(char) * new_size);
+        i++;
+    }
+    i = 0;
+    while (j < new_size)
+    {
+        while (i < new_size)
+        {
+            old_field[j][i] = '.';
+            i++;
+            
+        }
+        j++;
+        i = 0;
+    }
+    return (old_field);
+}
 int main(int argc, char **argv)
 {
     int fd;
     s_figure *tetri;
     s_figure *start;
+    s_figure *temp;
     char **field_new;
-    int count;
+    int size;
 
     tetri = malloc(sizeof(s_figure));
     tetri->prev = NULL;
@@ -102,12 +130,14 @@ int main(int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
     read_and_write(fd, &tetri);
     start = correction_func(start);
-    count = count_tetriminos(start);
-    field_new = field(count);
+    temp = start;
+    field_new = field(count_tetriminos(start));
     alpha_to_list(start);
-    //while (!(field_new = filling_field(field_new, start, 4)))
-    //{
-       // field_new = increase_field(field_new, 4);
-    //}
+    size = field_size_test(field_new);
+    while (!(filling_field(field_new, start, size)))
+    {
+        field_new = increase_field(field_new, ++size);
+        start = temp;
+    }
     return (0);
 }

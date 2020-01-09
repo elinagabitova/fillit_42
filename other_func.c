@@ -11,18 +11,13 @@ void print_field(char **field)
         i++;
     }
 }
-int field_size(char **field)
+int  field_size_test(char **field)
 {
     int size;
-    int i;
-    
+
     size = 0;
-    i = 0;
-    while (*field[i] != '\0')
-    {
+    while(field[0][size] == '.')
         size++;
-        i++;
-    }
     return (size);
 }
 
@@ -32,8 +27,8 @@ int square(int n)
 	m = 1;
 	while (m * m < n)
 		m++;
-	//if (m * m != n)
-		//m--;  check this!!!
+	if (m * m != n)
+		m--; 
 	return (m);
 }
 

@@ -42,11 +42,14 @@ int         count_tetriminos(s_figure *start);
 char        **init_field(int count);
 int         square(int n);
 int         minimum_field(int count);
-char        **increase_field(char **old_field, int old_size);
+char        **increase_field(char **old_field, int new_size);
 char        **field(int count);
-int        tetri_to_field(s_figure *tetri, char **field, s_position pos);
-int        field_size(char **field);char        **filling_field(char **field, s_figure *tetri, int count);
+int        tetri_to_field(s_figure *tetri, char **field, s_position pos, int size);
+int        field_size_test(char **field);
+int        filling_field(char **field, s_figure *tetri, int size);
 void        print_field(char **field);
 void        alpha_to_list(s_figure *start_tetri);
+void        clear_full_field(char **field_to_clear, int field_size);
+
 
 #endif

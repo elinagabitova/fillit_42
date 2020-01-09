@@ -1,43 +1,43 @@
 #include "fillit.h"
 
-void clear_field(s_figure *tetri, char **field, s_position pos)
+void clear_field(s_figure *tetri, char **field, s_position pos, int size)
 {
     int n;
 
     n = 0;
     while (n < 4)
-    {
-        if ( field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] == tetri->figure_Alpha)
-            field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] = '.';
+    {   
+        if (tetri->figure_position[n][1] + pos.y < size && tetri->figure_position[n][0] + pos.x < size)
+        {
+            if (field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] == tetri->figure_Alpha)
+                field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] = '.';
+        }
         n++;
-    }   
+    } 
 }
 
-int tetri_to_field(s_figure *tetri, char **field, s_position pos)
+int tetri_to_field(s_figure *tetri, char **field, s_position pos, int size)
 {
     int n;
-    int i = 0;
     
     n = 0;
     while (n < 4)
-    {
-        if (field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] == '.')
-            field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] = tetri->figure_Alpha;
+    {    
+        if (tetri->figure_position[n][1] + pos.y < size && tetri->figure_position[n][0] + pos.x < size)
+        {
+            if (field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] == '.')
+                field[tetri->figure_position[n][1] + pos.y][tetri->figure_position[n][0] + pos.x] = tetri->figure_Alpha;
+            else
+                return (0);   
+        }
         else
-            return (0);   
+            return (0);
         n++;
     }
-    while (i < 4)            
-    {
-        printf("%s\n", field[i]);
-        i++;
-    }
-    printf("\n");
-    return (1);
-    
+    return (1);    
 }
 
-char  **filling_field(char **field, s_figure *tetri, int count)
+int  filling_field(char **field, s_figure *tetri, int size)
 {
     s_position pos;
     int n;
@@ -48,32 +48,36 @@ char  **filling_field(char **field, s_figure *tetri, int count)
     pos.y = 0;
     while (tetri != NULL)
     {
-        check = tetri_to_field(tetri, field, pos);
+        check = tetri_to_field(tetri, field, pos, size);
         if (check == 1)
         {
-            pos.x++;
-            if (pos.x >= 4)
-            {
-                pos.x = 0;
-                pos.y++;
-                if (pos.y >= 4)
-                    return (NULL);
-
-            }
             tetri = tetri->next;
+            pos.x = 0;
+            pos.y = 0;
+            while (n < size)
+            {
+                printf("%s\n", field[n]);
+                n++;
+            }
+            printf("\n");
+            n = 0;
         }
+
         else if (check == 0)
         {
-            clear_field(tetri, field, pos);
+            clear_field(tetri, field, pos, size);
             pos.x++;
-            if (pos.x >= 4)
-            {
+            if (pos.x >= size)
+            {   
                 pos.x = 0;
                 pos.y++;
-                if (pos.y >= 4)
-                    return(NULL);
+                if (pos.y >= size)
+                {
+                    printf("zakonchilo\n");
+                    return (0);
+                }
             }
         }
     }
-    return (field);
+    return (1);
 }

@@ -1,14 +1,17 @@
 #include "fillit.h"
-char **increase_field(char **old_field, int old_size)
+
+void clear_full_field(char **field_to_clear, int field_size)
 {
     int i;
 
     i = 0;
-    while (i != old_size)
-        free(old_field[i]);
-    free(old_field);
-    old_size++;
-    return(init_field(old_size));
+    while (i < (field_size - 1))
+    {
+        free(field_to_clear[i]);
+        i++;
+    }
+    i = 0;
+    free(field_to_clear);
 }
 
 int minimum_field(int count)
@@ -46,6 +49,9 @@ char **init_field(int count) // taking count of tetriminos
 
 char **field(int count)
 {
+    int i;
+
+    i = 0;
     char **field;
     field = init_field(count);
     return (field);
